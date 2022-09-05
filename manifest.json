@@ -1,0 +1,32 @@
+{
+  "version": "0.0.0",
+  "id": "PDE",
+  "name": "Project Details Explorer",
+  "description": "Project details visualizer, exporter, copier.",
+  "summary": "Export project details!",
+  "author": "Rafael R. Camargo",
+  "languages": ["en"],
+  "host": {
+    "app": "XD",
+    "minVersion": "26.0"
+  },
+  "uiEntryPoints": [
+    {
+      "label": "Assets",
+      "type": "menu",
+      "commandId": "copy"
+    }
+  ],
+  "icons": [
+    {
+      "path": "images/icon@1x.png",
+      "width": 24,
+      "height": 24
+    },
+    {
+      "path": "images/icon@2x.png",
+      "width": 48,
+      "height": 48
+    }
+  ]
+}
