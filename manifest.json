@@ -12,9 +12,9 @@
   },
   "uiEntryPoints": [
     {
-      "label": "Assets",
+      "label": "Extract theme",
       "type": "menu",
-      "commandId": "copy"
+      "commandId": "extract"
     }
   ],
   "icons": [
@@ -28,5 +28,6 @@
       "width": 48,
       "height": 48
     }
-  ]
+  ],
+  "$schema": "https://raw.githubusercontent.com/pklaschka/xd-manifest-schema/master/schema.json"
 }

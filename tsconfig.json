@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "target": "es2015",
+    "baseUrl": "./src/",
+    "allowJs": true,
+    "checkJs": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "./src/types",
+      "node"
+    ],
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
