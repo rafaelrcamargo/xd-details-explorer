@@ -13,8 +13,8 @@
   "uiEntryPoints": [
     {
       "label": "Extract theme",
-      "type": "menu",
-      "commandId": "extract"
+      "commandId": "extract",
+      "type": "menu"
     }
   ],
   "icons": [

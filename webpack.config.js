@@ -1,12 +1,26 @@
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const webpack = require("webpack")
 const path = require("path")
 
 module.exports = {
   mode: "production",
   devtool: "source-map",
   entry: "./src/main.ts",
-  plugins: [new webpack.IgnorePlugin({ resourceRegExp: /^(uxp)$/u })],
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, ""),
+    libraryTarget: "commonjs2"
+  },
+  externals: {
+    assets: "assets",
+    scenegraph: "scenegraph",
+    application: "application",
+    commands: "commands",
+    clipboard: "clipboard",
+    cloud: "cloud",
+    uxp: "uxp",
+    viewport: "viewport",
+    interactions: "interactions"
+  },
   module: {
     rules: [
       {
@@ -19,6 +33,7 @@ module.exports = {
   resolve: {
     extensions: [".ts"]
   },
+  performance: { maxEntrypointSize: 10000000, maxAssetSize: 100000000 },
   optimization: {
     minimize: true,
     minimizer: [
@@ -26,9 +41,5 @@ module.exports = {
         parallel: true
       })
     ]
-  },
-  output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "")
   }
 }

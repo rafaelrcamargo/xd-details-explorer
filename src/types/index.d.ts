@@ -10,8 +10,6 @@ import "./viewport"
 import { SceneNode, Artboard } from "scenegraph"
 
 declare global {
-  function require(path: string): any
-
   /**
    * Represents the children of a scenenode. Typically accessed via the SceneNode.children property.
    */
