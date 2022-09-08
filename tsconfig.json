@@ -1,17 +1,11 @@
 {
   "compilerOptions": {
-    "outDir": "./",
-    "strict": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "downlevelIteration": true,
-    "target": "ES2015",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "allowJs": true,
-    "checkJs": false,
-    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src/",
+    "checkJs": false,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "lib": [
@@ -19,20 +13,26 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "baseUrl": "./src/",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2015",
     "typeRoots": [
       "node_modules/@types"
     ],
     "types": [
       "./src/types",
       "node"
-    ],
+    ]
   },
-  "include": [
-    "src/**/*"
-  ],
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "src/**/*"
   ],
   "typeAcquisition": {
     "enable": true
