@@ -4,9 +4,9 @@
 
 # [Adobe XD][xd-url] - Export project details
 
-[![Adobe XD][xd-shield]][xd-url]
-
 [Getting started](#getting-started) • [Commands](#commands) • [Installation](#installation)
+
+[![Adobe XD][xd-shield]][xd-url]
 
 </div>
 
