@@ -1,9 +1,9 @@
 // Types
-import type { CharacterStyle, CharacterStyleAsset, ColorAsset } from "assets"
+import type { CharacterStyleAsset, ColorAsset } from "assets"
 import type { GraphicNode, SceneNode } from "scenegraph"
 
 // Libs
-import { error } from "./libs/dialogs.js"
+import { error } from "./libs/dialogs"
 import { getName } from "./helpers/color"
 
 const assets = require("assets")

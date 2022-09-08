@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-import { getManifest, getNearestIcon } from "./manifest.js"
-let manifest
+// @ts-nocheck - Because of the way the dialog was created by adobe, original code was not typescript compatible
+
+import { getManifest, getNearestIcon } from "./manifest"
+let manifest: { icons: any; name: any }
 
 /**
  * Converts a string (or an array of strings or other objects) to a nicer HTML
@@ -36,7 +38,7 @@ let manifest
  * @param {string | string[] | * | Array<*>} str
  * @returns {string} the HTML representation
  */
-function strToHtml(str) {
+function strToHtml(str: string) {
   // allow some common overloads, including arrays and non-strings
   if (Array.isArray(str)) {
     return str.map(str => strToHtml(str)).join("")
@@ -102,7 +104,7 @@ async function createDialog(
     template,
     isError = false,
     buttons = [{ label: "Close", variant: "cta", type: "submit" }]
-  } = {},
+  },
   width = 360,
   height = "auto",
   iconSize = 18
@@ -200,7 +202,7 @@ async function createDialog(
     <footer>
         ${buttons
           .map(
-            ({ label, type, variant } = {}, idx) =>
+            ({ label, type, variant }, idx) =>
               `<button id="btn${idx}" type="${type}" uxp-variant="${variant}">${label}</button>`
           )
           .join("")}
@@ -223,7 +225,7 @@ async function createDialog(
   form.onsubmit = () => dialog.close("ok")
 
   // Attach button event handlers and set ok and cancel indices
-  buttons.forEach(({ type, variant } = {}, idx) => {
+  buttons.forEach(({ type, variant }, idx) => {
     const button = dialog.querySelector(`#btn${idx}`)
     if (type === "submit" || variant === "cta") {
       okButtonIdx = idx
@@ -231,7 +233,7 @@ async function createDialog(
     if (type === "reset") {
       cancelButtonIdx = idx
     }
-    button.onclick = e => {
+    button.onclick = (e: { preventDefault: () => void }) => {
       e.preventDefault()
       clickedButtonIdx = idx
       dialog.close(idx === cancelButtonIdx ? "reasonCanceled" : "ok")
@@ -266,7 +268,7 @@ async function createDialog(
  * @param {string[]} msgs
  * @returns {Promise<{which: number}>} `which` indicates which button was clicked.
  */
-async function alert(title, ...msgs) {
+async function alert(title: any, ...msgs: any[]) {
   return createDialog({ title, msgs })
 }
 
@@ -277,7 +279,7 @@ async function alert(title, ...msgs) {
  * @param {string[]} msgs
  * @returns {Promise<{which: number}>} `which` indicates which button was clicked.
  */
-async function error(title, ...msgs) {
+async function error(title: string, ...msgs: string[]) {
   return createDialog({ title, isError: true, msgs })
 }
 
@@ -289,7 +291,7 @@ async function error(title, ...msgs) {
  * @param {string[]} [buttons = ['Cancel', 'OK']] the buttons to display (in macOS order); TWO MAX.
  * @returns {Promise<{which: number}>} `which` indicates which button was clicked.
  */
-async function confirm(title, msg, buttons = ["Cancel", "OK"]) {
+async function confirm(title: any, msg: any, buttons = ["Cancel", "OK"]) {
   return createDialog({
     title,
     msgs: [msg],
@@ -308,7 +310,7 @@ async function confirm(title, msg, buttons = ["Cancel", "OK"]) {
  * @param {string[]} [buttons = ['Cancel', 'OK']] the buttons to display (in macOS order); TWO MAX.
  * @returns {Promise<{which: number}>} `which` indicates which button was clicked.
  */
-async function warning(title, msg, buttons = ["Cancel", "OK"]) {
+async function warning(title: any, msg: any, buttons = ["Cancel", "OK"]) {
   return createDialog({
     title,
     msgs: [msg],
@@ -329,7 +331,7 @@ async function warning(title, msg, buttons = ["Cancel", "OK"]) {
  * @param {boolean} [multiline = false] If `true`, a multiline textarea will be used instead of a single line editor.
  * @returns {Promise<{which: number, value: string}>} `which` indicates which button was clicked, and `value` indicates the entered value in the text field.
  */
-async function prompt(title, msg, prompt, buttons = ["Cancel", "OK"], multiline = false) {
+async function prompt(title: any, msg: any, prompt: any, buttons = ["Cancel", "OK"], multiline = false) {
   return createDialog({
     title,
     msgs: [msg],

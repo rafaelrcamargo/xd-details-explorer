@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-let manifest
+let manifest: any
 
 /**
  * Reads the plugin's manifest and returns the parsed contents.
@@ -44,7 +44,7 @@ async function getManifest() {
  * @param {number} size
  * @returns {string} path to the icon
  */
-function getNearestIcon(manifest, size) {
+function getNearestIcon(manifest: { icons: any; name?: any }, size: number) {
   if (!manifest) {
     return
   }
@@ -54,14 +54,14 @@ function getNearestIcon(manifest, size) {
     // { width, height, path }
 
     // icons are assumed to be square, so we'll sort descending on the width
-    const sortedIcons = manifest.icons.sort((a, b) => {
+    const sortedIcons = manifest.icons.sort((a: { width: any }, b: { width: any }) => {
       const iconAWidth = a.width
       const iconBWidth = b.width
       return iconAWidth < iconBWidth ? 1 : iconAWidth > iconBWidth ? -1 : 0
     })
 
     // next, search until we find an icon _too_ small for the desired size
-    const icon = sortedIcons.reduce((last, cur) => {
+    const icon = sortedIcons.reduce((last: any, cur: { width: number }) => {
       if (!last) {
         last = cur
       } else {
