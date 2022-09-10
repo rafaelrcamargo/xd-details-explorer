@@ -104,7 +104,28 @@ const flattenChildren = (node: Nodes, children: Childs) =>
     nodeChild.children.length && flattenChildren(nodeChild, children)
   })
 
-// * Command
+const deepTreeSearch = (_: XDSelection, documentRoot: Nodes) => {
+  const artboardFlattenedChildren: Nodes[] = []
+
+  if (documentRoot?.children?.length) {
+    documentRoot.children.forEach(documentItem => {
+      if (documentItem.constructor.name === "Artboard") {
+        artboardFlattenedChildren.push(documentItem)
+        flattenChildren(documentItem, artboardFlattenedChildren)
+      }
+    })
+  } else {
+    showError()
+  }
+
+  if (!artboardFlattenedChildren.length) return
+
+  artboardFlattenedChildren.forEach(node => {
+    console.log(node)
+  })
+}
+
+// * Commands
 const extract = (_: XDSelection, documentRoot: Nodes) => {
   const artboardFlattenedChildren: Nodes[] = []
 
@@ -129,9 +150,13 @@ const extract = (_: XDSelection, documentRoot: Nodes) => {
 
   if (!artboardFlattenedChildren.length) return
 
-  /* artboardFlattenedChildren.forEach(node => {
+  artboardFlattenedChildren.forEach(node => {
     console.log(node)
-  }) */
+  })
 }
 
-exports.commands = { extract }
+const copy = () => {}
+const save = () => {}
+const view = () => {}
+
+exports.commands = { copy, save, view }
