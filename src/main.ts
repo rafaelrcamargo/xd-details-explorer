@@ -3,10 +3,31 @@ import type { CharacterStyleAsset, ColorAsset } from "assets"
 import type { GraphicNode, SceneNode } from "scenegraph"
 
 // Libs
-import { error, confirm } from "./libs/dialogs"
+import { error } from "./libs/dialogs"
 import { getName } from "./helpers/color"
 
+// XD Utils
 const assets = require("assets")
+const fs = require("uxp").storage.localFileSystem
+
+// * Utils
+const getData = () => {
+  // * Colors
+  const colors = getColors()
+
+  // * Typography
+  const typography = getTypography()
+
+  return {
+    colors,
+    typography
+  }
+}
+const filterProperties = (first: unknown[], second: unknown[]) => {
+  return first.filter(item => {
+    return second.indexOf(item) < 0
+  })
+}
 
 // * Get all colors from Assets
 type Colors = { name: string; color: string }[]
@@ -21,12 +42,6 @@ const getColors = (): Colors => {
       name: acronym.toLocaleLowerCase(),
       color: tone.toLocaleLowerCase()
     }
-  })
-}
-
-const filterProperties = (first: unknown[], second: unknown[]) => {
-  return first.filter(item => {
-    return second.indexOf(item) < 0
   })
 }
 
@@ -83,18 +98,6 @@ async function showError() {
   )
 }
 
-// * Show dialog
-async function showConfirm() {
-  await confirm(
-    // ? Title
-    "Exporting assets",
-    // ? Body
-    "Please wait while we export your assets, this may take a few minutes!",
-    // ? Buttons
-    ["Cancel", "Continue"]
-  )
-}
-
 // * Flatten children array
 type Nodes = Partial<GraphicNode>
 type Childs = Partial<GraphicNode>[] | SceneNode[]
@@ -104,6 +107,7 @@ const flattenChildren = (node: Nodes, children: Childs) =>
     nodeChild.children.length && flattenChildren(nodeChild, children)
   })
 
+// * Deep components tree search
 const deepTreeSearch = (_: XDSelection, documentRoot: Nodes) => {
   const artboardFlattenedChildren: Nodes[] = []
 
@@ -126,37 +130,19 @@ const deepTreeSearch = (_: XDSelection, documentRoot: Nodes) => {
 }
 
 // * Commands
-const extract = (_: XDSelection, documentRoot: Nodes) => {
-  const artboardFlattenedChildren: Nodes[] = []
+const copy = () => {
+  const data = getData()
+  return require("clipboard").copyText(JSON.stringify(data))
+}
 
-  // * Colors
-  const colors = getColors()
-  console.log(colors)
-
-  // * Typography
-  const typography = getTypography()
-  console.log(typography)
-
-  if (documentRoot?.children?.length) {
-    documentRoot.children.forEach(documentItem => {
-      if (documentItem.constructor.name === "Artboard") {
-        artboardFlattenedChildren.push(documentItem)
-        flattenChildren(documentItem, artboardFlattenedChildren)
-      }
+const save = () => {
+  console.log(`Hello World!`)
+  const data = getData()
+  fs.getFolder().then((folder: any) => {
+    folder.createFile("export.json", { overwrite: true }).then((file: { write: (arg0: string) => void }) => {
+      file.write(JSON.stringify(data))
     })
-  } else {
-    showError()
-  }
-
-  if (!artboardFlattenedChildren.length) return
-
-  artboardFlattenedChildren.forEach(node => {
-    console.log(node)
   })
 }
 
-const copy = () => {}
-const save = () => {}
-const view = () => {}
-
-exports.commands = { copy, save, view }
+exports.commands = { save, copy }

@@ -12,8 +12,13 @@
   },
   "uiEntryPoints": [
     {
-      "label": "Extract theme",
-      "commandId": "extract",
+      "label": "Copy theme",
+      "commandId": "copy",
+      "type": "menu"
+    },
+    {
+      "label": "Save theme",
+      "commandId": "save",
       "type": "menu"
     }
   ],
