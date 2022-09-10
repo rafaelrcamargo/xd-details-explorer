@@ -14,6 +14,8 @@
 
 This plugin allows you to export the project assets of your project to a JSON file.
 
+> This is a example repository for Adobe XD plugin development.
+
 # ⚙️ Commands
 
 | Command | Usage                                     |
