@@ -3,7 +3,7 @@ import type { CharacterStyleAsset, ColorAsset } from "assets"
 import type { GraphicNode, SceneNode } from "scenegraph"
 
 // Libs
-import { error } from "./libs/dialogs"
+import { error, confirm } from "./libs/dialogs"
 import { getName } from "./helpers/color"
 
 const assets = require("assets")
@@ -80,6 +80,18 @@ async function showError() {
     "* Check if you have any layers in your artboards",
     "* Save your document",
     "* Try again in a few minutes"
+  )
+}
+
+// * Show dialog
+async function showConfirm() {
+  await confirm(
+    // ? Title
+    "Exporting assets",
+    // ? Body
+    "Please wait while we export your assets, this may take a few minutes!",
+    // ? Buttons
+    ["Cancel", "Continue"]
   )
 }
 
